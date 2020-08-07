@@ -6,6 +6,7 @@ import sys
 import requests
 from ddtrace import patch_all; patch_all(logging=True)
 from ddtrace import tracer
+from ddtrace.propagation.http import HTTPPropagator
 from random import randrange
 
 app = Flask(__name__)
@@ -23,7 +24,11 @@ def main():
 
 @app.route("/conferir-estoque")
 def confere_estoque():
-    r = requests.get("http://52.179.7.104:7777/quotar-transportadoras")
+    with tracer.trace('/conferir-estoque') as span:
+        headers = {}
+        propagator = HTTPPropagator()
+        propagator.inject(span.context, headers)
+        requests.get("http://52.179.7.104:7777/quotar-transportadoras")
 
     estoque = randrange(101) # Gera número aleatório de 0 a 100
     logger.info("Estoque disponivel: "+str(estoque)+"%")
