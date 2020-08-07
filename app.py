@@ -3,6 +3,7 @@ import os
 import logging
 import json_log_formatter
 import sys
+import requests
 from ddtrace import patch_all; patch_all(logging=True)
 from ddtrace import tracer
 from random import randrange
@@ -23,6 +24,7 @@ def main():
 @app.route("/conferir-estoque")
 def confere_estoque():
     r = requests.get("http://52.179.7.104:7777/quotar-transportadoras")
+
     estoque = randrange(101) # Gera número aleatório de 0 a 100
     logger.info("Estoque disponivel: "+str(estoque)+"%")
     if estoque > 50:
