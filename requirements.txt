@@ -1,3 +1,4 @@
 ddtrace
 flask
 json_log_formatter
+requests
