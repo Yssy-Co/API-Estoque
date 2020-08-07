@@ -4,8 +4,9 @@ import logging
 import json_log_formatter
 import sys
 import requests
+import datetime
 from ddtrace import patch_all; patch_all(logging=True)
-from ddtrace import tracer
+from ddtrace import tracer, config
 from ddtrace.propagation.http import HTTPPropagator
 from random import randrange
 
@@ -16,6 +17,11 @@ json_handler.setFormatter(formatter)
 logger = logging.getLogger()
 logger.addHandler(json_handler)
 logger.setLevel(logging.INFO)
+
+config.service = 'api-estoque'
+config.env = 'yssy-demo'
+time = datetime.datetime.now()
+config.version = str(time.day)+"-"+str(time.month)
 
 @app.route("/")
 def main():
