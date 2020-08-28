@@ -40,7 +40,7 @@ def confere_estoque():
     estoque = randrange(3) # Gera número aleatório de 0 a 4    
     if estoque > 0:
         logger.info("Estoque disponivel: "+str(estoque))
-        return estoque, 200
+        return str(estoque), 200
     else:
         logger.error("API de Estoque Indisponivel")
         return 'API de Estoque Indisponivel', 500
