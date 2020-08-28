@@ -30,8 +30,8 @@ def main():
 
 @app.route("/conferir-estoque")
 def confere_estoque():
-    with tracer.trace('/conferir-estoque') as span:
-        '''headers = {}
+    '''with tracer.trace('/conferir-estoque') as span:
+        headers = {}
         propagator = HTTPPropagator()
         propagator.inject(span.context, headers)
         api_logistica = int(os.environ.get("API_LOGISTICA", "localhost"))
