@@ -31,15 +31,16 @@ def main():
 @app.route("/conferir-estoque")
 def confere_estoque():
     with tracer.trace('/conferir-estoque') as span:
-        headers = {}
+        '''headers = {}
         propagator = HTTPPropagator()
         propagator.inject(span.context, headers)
-        requests.get("http://52.179.7.104:7777/quotar-transportadoras")
+        api_logistica = int(os.environ.get("API_LOGISTICA", "localhost"))
+        requests.get("http://"+api_logistica+":7777/quotar-transportadoras")'''
 
-    estoque = randrange(101) # Gera número aleatório de 0 a 100
-    logger.info("Estoque disponivel: "+str(estoque)+"%")
+    estoque = randrange(3) # Gera número aleatório de 0 a 100    
     if estoque > 50:
-        return "200 OK", 200
+        logger.info("Estoque disponivel: "+str(estoque))
+        return estoque, 200
     else:
         logger.error("API de Estoque Indisponivel")
         return 'API de Estoque Indisponivel', 500
