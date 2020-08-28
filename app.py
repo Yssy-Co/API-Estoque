@@ -37,8 +37,8 @@ def confere_estoque():
         api_logistica = int(os.environ.get("API_LOGISTICA", "localhost"))
         requests.get("http://"+api_logistica+":7777/quotar-transportadoras")'''
 
-    estoque = randrange(3) # Gera número aleatório de 0 a 100    
-    if estoque > 50:
+    estoque = randrange(3) # Gera número aleatório de 0 a 4    
+    if estoque > 0:
         logger.info("Estoque disponivel: "+str(estoque))
         return estoque, 200
     else:
