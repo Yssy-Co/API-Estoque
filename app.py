@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import os
 import logging
 import json_log_formatter
@@ -29,7 +29,10 @@ def main():
     return "400 Bad Request", 400
 
 @app.route("/conferir-estoque")
-def confere_estoque():
+def confere_estoque():    
+    propagator = HTTPPropagator()
+    context = propagator.extract(request.headers)
+    tracer.context_provider.activate(context)          
     '''with tracer.trace('/conferir-estoque') as span:
         headers = {}
         propagator = HTTPPropagator()
